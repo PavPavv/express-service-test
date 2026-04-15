@@ -1,11 +1,22 @@
-import express from 'express';
+import { env } from "./config/env.ts";
+import { createServer } from "./app.ts";
 
-const app = express();
+const main = async () => {
+  try {
+    // подключение базы
+    // запуск приложения
+    // createServer();
+    const server = createServer();
 
-app.get('/', (_req, res) => {
-  res.send('It works!');
-});
+    server.listen(env.PORT, () => {
+      global.console.log(`🚀 Server running on http://localhost:${env.PORT}`);
+      global.console.log(`📝 Environment: ${env.NODE_ENV}`);
+    });
 
-app.listen(8080, () => {
-  console.log(`Example app listening on port ${8080}`);
-});
+    // TODO: graceful shutdown for SIGTERM, SIGINT
+  } catch (err) {
+    // TODO: add log error
+    process.exit(1);
+  }
+};
+main();
