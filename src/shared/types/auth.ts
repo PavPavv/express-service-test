@@ -5,15 +5,15 @@ export interface LoginInput {
   password: string;
 }
 
-export interface AuthResult extends Omit<User, "password"> {}
+export interface AuthResult extends Omit<User, "password"> { }
 
 export interface TokenPayload {
-  userId: string
-  email: string
-  role: string
+  userId: number;
+  email: string;
+  role: string;
 }
 
 export interface AuthResponse {
-  user: AuthResult,
+  user: AuthResult;
   token: string;
 }

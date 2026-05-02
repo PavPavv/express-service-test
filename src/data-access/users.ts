@@ -1,10 +1,13 @@
-import { prisma } from '../config/db.js';
-import type { AuthResult, User, CreateUserInput } from '../shared/types/index.js';
-
+import { prisma } from "../config/db.js";
+import type {
+  AuthResult,
+  User,
+  CreateUserInput,
+} from "../shared/types/index.js";
 
 export const getAllUsers = async (): Promise<User[] | void> => {
   try {
-    await prisma.user.findMany({
+    return await prisma.user.findMany({
       select: {
         id: true,
         email: true,
@@ -23,13 +26,15 @@ export const getAllUsers = async (): Promise<User[] | void> => {
   }
 };
 
-export const createUser = async (data: CreateUserInput): Promise<AuthResult | void> => {
+export const createUser = async (
+  data: CreateUserInput,
+): Promise<AuthResult | void> => {
   try {
     await prisma.user.create({
       data,
       omit: {
         password: true,
-      }
+      },
     });
   } catch (err) {
     // TODO: добавить обработку ошибок на уровне сервиса
@@ -40,8 +45,8 @@ export const createUser = async (data: CreateUserInput): Promise<AuthResult | vo
 // TODO: поправить тип
 export const findUser = async (email: string): Promise<any> => {
   try {
-    await prisma.user.findUnique({
-      where: { email }
+    return await prisma.user.findUnique({
+      where: { email },
     });
   } catch (err) {
     // TODO: добавить обработку ошибок на уровне сервиса

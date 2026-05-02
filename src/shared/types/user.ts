@@ -2,7 +2,7 @@ export type Role = "ADMIN" | "USER";
 export type Status = "ACTIVE" | "INACTIVE";
 
 export interface User {
-  id: string;
+  id: number;
   email: string;
   firstName: string;
   lastName: string;

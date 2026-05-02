@@ -1,6 +1,7 @@
 import express from "express";
-import cors from 'cors';
+import cors from "cors";
 import usersRouter from "./routes/users.routes.js";
+import { StatusCodesEnum } from "./shared/consts/status-codes.js";
 
 // import { env } from "./config/env.ts";
 
@@ -15,11 +16,12 @@ export const createServer = () => {
 
   // TODO: add rate limitimg
 
-  // TODO: add health check
+  app.get("check", (_req, res) => {
+    res.status(StatusCodesEnum.OK).json({ status: "ok" });
+  });
 
   // API роуты
   app.use("/api/users", usersRouter);
-
 
   // TODO: add 404 handler
 
