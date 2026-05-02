@@ -1,12 +1,15 @@
 import express from "express";
-import usersRouter from "./routes/users.routes.ts";
+import cors from 'cors';
+import usersRouter from "./routes/users.routes.js";
 
 // import { env } from "./config/env.ts";
 
 export const createServer = () => {
   const app = express();
 
-  // TODO: add middlewares
+  // middlewares
+  app.use(cors());
+  app.use(express.json());
 
   // TODO: add logging
 
@@ -15,12 +18,8 @@ export const createServer = () => {
   // TODO: add health check
 
   // API роуты
-  // REMOVE: тестовый роут
-  app.get("/", (_req, res) => {
-    res.send("Hi!");
-  });
-
   app.use("/api/users", usersRouter);
+
 
   // TODO: add 404 handler
 

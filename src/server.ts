@@ -1,5 +1,5 @@
-import { env } from "./config/env.ts";
-import { createServer } from "./app.ts";
+import { env } from "./config/env.js";
+import { createServer } from "./app.js";
 
 const main = async () => {
   try {
