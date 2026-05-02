@@ -1,9 +1,13 @@
 import express from "express";
+import { getUsers, loginUser, postUser } from '../controllers/users.js';
 
 const usersRouter = express.Router();
 
-usersRouter.get("/", (_req, res, _next) => {
-  res.status(200).json([{ id: 1, name: "Jack" }]);
-});
+// GET {baseUrl}/api/users/
+usersRouter.get("/", getUsers);
+
+usersRouter.post("/register", postUser);
+
+usersRouter.post("/login", loginUser);
 
 export default usersRouter;

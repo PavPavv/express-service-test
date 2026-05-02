@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { EMAIL_REGEX, ISO_DATE_REGEX } from '../consts';
+import { EMAIL_REGEX, ISO_DATE_REGEX } from '../consts/index.js';
 
 export const createUserSchema = z.object({
   email: z.string().regex(EMAIL_REGEX, "Invalid email"),

@@ -18,5 +18,5 @@ export interface CreateUserInput {
   password: string;
   firstName: string;
   lastName: string;
-  birthDate: Date;
+  birthDate: string;
 }
