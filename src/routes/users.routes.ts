@@ -1,5 +1,5 @@
 import express from "express";
-import { getUsers, loginUser, postUser } from "../controllers/users.js";
+import { blockUserById, getUserById, getUsers, loginUser, postUser } from "../controllers/users.js";
 import { authMiddleware } from "../middleware/auth.middleware.js";
 
 const usersRouter = express.Router();
@@ -14,5 +14,7 @@ usersRouter.use(authMiddleware);
 
 // private routes
 usersRouter.get("/", getUsers);
+usersRouter.get("/:id", getUserById);
+usersRouter.patch("/block/:id", blockUserById);
 
 export default usersRouter;
