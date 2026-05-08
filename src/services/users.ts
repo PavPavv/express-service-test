@@ -1,4 +1,4 @@
-import { createUser, findUser, getAllUsers } from "../data-access/users.js";
+import { createUser, deactivateUserById, findUser, getAllUsers, getUserById } from "../data-access/users.js";
 import type { AuthResponse, LoginInput, User } from "../shared/types/index.js";
 import type { CreateUserInput } from "../shared/types/user.js";
 import {
@@ -14,6 +14,18 @@ export const getUsersService = async (): Promise<User[]> => {
   }
   return [];
 };
+
+export const getUserService = async (id: string): Promise<any> => {
+  const user = await getUserById(Number(id));
+
+  if (!user) {
+    throw new Error("No such a user");
+  }
+  
+  const { password, ...userWithoutPassword } = user;
+
+  return { user: userWithoutPassword };
+}
 
 export const createUserService = async (
   data: CreateUserInput,
@@ -69,4 +81,13 @@ export const loginUserService = async (data: LoginInput) => {
   const { password, ...userWithoutPassword } = user;
 
   return { user: userWithoutPassword, token };
+};
+
+export const blockUserService = async (id: string) => {
+  if (!parseInt(id)) {
+    // TODO: Подумать
+    throw new Error("No such a user");
+  }
+
+  await deactivateUserById(parseInt(id));
 };

@@ -3,9 +3,6 @@ import { createServer } from "./app.js";
 
 const main = async () => {
   try {
-    // подключение базы
-    // запуск приложения
-    // createServer();
     const server = createServer();
 
     server.listen(env.PORT, () => {

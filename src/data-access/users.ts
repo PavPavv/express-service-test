@@ -26,6 +26,17 @@ export const getAllUsers = async (): Promise<User[] | void> => {
   }
 };
 
+export const getUserById = async (id: number): Promise<any> => {
+  try {
+    return await prisma.user.findUnique({
+      where: { id },
+    });
+  } catch (err) {
+    // TODO: добавить обработку ошибок на уровне сервиса
+    global.console.log(err);
+  }
+}
+
 export const createUser = async (
   data: CreateUserInput,
 ): Promise<AuthResult | void> => {
@@ -49,6 +60,32 @@ export const findUser = async (email: string): Promise<any> => {
       where: { email },
     });
   } catch (err) {
+    // TODO: добавить обработку ошибок на уровне сервиса
+    global.console.error(err);
+  }
+};
+
+// TODO: поправить тип
+export const deactivateUserById = async (id: number): Promise<any> => {
+  try {
+    return await prisma.user.update({
+      where: { id },
+      data: {
+        'status': 'INACTIVE',
+      },
+      select: {
+        id: true,
+        email: true,
+        firstName: true,
+        lastName: true,
+        birthDate: true,
+        role: true,
+        status: true,
+        createdAt: true,
+        updatedAt: true
+      },
+    });
+  } catch(err) {
     // TODO: добавить обработку ошибок на уровне сервиса
     global.console.error(err);
   }
