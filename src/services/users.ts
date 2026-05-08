@@ -20,7 +20,9 @@ export const createUserService = async (
 ): Promise<AuthResponse | null> => {
   const existingUser = await findUser(data.email);
 
-  if (existingUser) return null;
+  if (existingUser) {
+    return null;
+  }
 
   const hashedPassword = await hashPassword(data.password);
 
@@ -29,17 +31,17 @@ export const createUserService = async (
     password: hashedPassword,
   });
 
-  if (newUser) {
-    const token = generateToken({
-      userId: newUser.id,
-      email: newUser.email,
-      role: newUser.role,
-    });
-
-    return { user: newUser, token };
+  if (!newUser) {
+    return null;
   }
 
-  return null;
+  const token = generateToken({
+    userId: newUser.id,
+    email: newUser.email,
+    role: newUser.role,
+  });
+
+  return { user: newUser, token };
 };
 
 export const loginUserService = async (data: LoginInput) => {

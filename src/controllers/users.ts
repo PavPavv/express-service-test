@@ -26,7 +26,11 @@ export const postUser = async (
   const data = req.body;
   const newUser = await createUserService(data);
 
-  res.status(StatusCodesEnum.SuccessfullyCreated).json(newUser);
+  if (newUser) {
+    res.status(StatusCodesEnum.SuccessfullyCreated).json(newUser);
+  } else {
+    res.status(StatusCodesEnum.Conflict).json({ error: "User already exists" });
+  }
 };
 
 export const loginUser = async (

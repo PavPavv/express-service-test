@@ -30,7 +30,7 @@ export const createUser = async (
   data: CreateUserInput,
 ): Promise<AuthResult | void> => {
   try {
-    await prisma.user.create({
+    return await prisma.user.create({
       data,
       omit: {
         password: true,
