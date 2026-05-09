@@ -28,7 +28,6 @@ export const parseToken = (token: string) => {
 };
 
 export const checkAccessByRoleAndId = (parsedToken: string | JwtPayload | null, id?: string): boolean => {
-  global.console.log({ parsedToken });
   if (parsedToken && isDecodedToken(parsedToken)) {
     if (parsedToken.role === 'ADMIN' || parsedToken.userId === Number(id)) {
       return true 
