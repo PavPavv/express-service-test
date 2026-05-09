@@ -1,4 +1,5 @@
 import { prisma } from "../config/db.js";
+import { logger } from '../config/logger.js';
 import type {
   AuthResult,
   User,
@@ -21,8 +22,7 @@ export const getAllUsers = async (): Promise<User[] | void> => {
       },
     });
   } catch (err) {
-    // TODO: добавить обработку ошибок на уровне сервиса
-    global.console.error(err);
+    logger.error({ error: err }, 'Ошибка получения пользователей.');
   }
 };
 
@@ -32,8 +32,7 @@ export const getUserById = async (id: number): Promise<any> => {
       where: { id },
     });
   } catch (err) {
-    // TODO: добавить обработку ошибок на уровне сервиса
-    global.console.log(err);
+    logger.error({ error: err }, 'Ошибка получения пользователя по ID.');
   }
 }
 
@@ -48,8 +47,7 @@ export const createUser = async (
       },
     });
   } catch (err) {
-    // TODO: добавить обработку ошибок на уровне сервиса
-    global.console.error(err);
+    logger.error({ error: err }, 'Ошибка создания пользователя.');
   }
 };
 
@@ -60,8 +58,7 @@ export const findUser = async (email: string): Promise<any> => {
       where: { email },
     });
   } catch (err) {
-    // TODO: добавить обработку ошибок на уровне сервиса
-    global.console.error(err);
+    logger.error({ error: err }, 'Ошибка получения пользователя.');
   }
 };
 
@@ -86,7 +83,6 @@ export const deactivateUserById = async (id: number): Promise<any> => {
       },
     });
   } catch(err) {
-    // TODO: добавить обработку ошибок на уровне сервиса
-    global.console.error(err);
+    logger.error({ error: err }, 'Ошибка блокировки пользователя.');
   }
 };
