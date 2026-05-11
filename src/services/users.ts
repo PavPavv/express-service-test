@@ -15,7 +15,7 @@ export const getUsersService = async (): Promise<User[]> => {
   return [];
 };
 
-export const getUserService = async (id: string): Promise<any> => {
+export const getUserService = async (id: string): Promise<{ user: User }> => {
   const user = await getUserById(Number(id));
 
   if (!user) {
@@ -56,15 +56,12 @@ export const createUserService = async (
   return { user: newUser, token };
 };
 
-export const loginUserService = async (data: LoginInput) => {
+export const loginUserService = async (data: LoginInput): Promise<AuthResponse> => {
   const user = await findUser(data.email);
 
   if (!user) {
     throw new Error("Invalid email or password.");
   }
-
-  // TODO
-  // if (user.status) {}
 
   const isPasswordValid = await comparePassword(data.password, user.password);
 
@@ -83,11 +80,11 @@ export const loginUserService = async (data: LoginInput) => {
   return { user: userWithoutPassword, token };
 };
 
-export const blockUserService = async (id: string) => {
+export const blockUserService = async (id: string): Promise<User | null | void> => {
   if (!parseInt(id)) {
     // TODO: Подумать
     throw new Error("No such a user");
   }
 
-  await deactivateUserById(parseInt(id));
+  return await deactivateUserById(parseInt(id));
 };

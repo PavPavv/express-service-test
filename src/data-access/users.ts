@@ -3,6 +3,7 @@ import { logger } from '../config/logger.js';
 import type {
   AuthResult,
   User,
+  UserWithPassword,
   CreateUserInput,
 } from "../shared/types/index.js";
 
@@ -26,7 +27,7 @@ export const getAllUsers = async (): Promise<User[] | void> => {
   }
 };
 
-export const getUserById = async (id: number): Promise<any> => {
+export const getUserById = async (id: number): Promise<UserWithPassword | null | void> => {
   try {
     return await prisma.user.findUnique({
       where: { id },
@@ -51,8 +52,7 @@ export const createUser = async (
   }
 };
 
-// TODO: поправить тип
-export const findUser = async (email: string): Promise<any> => {
+export const findUser = async (email: string): Promise<UserWithPassword | null | void> => {
   try {
     return await prisma.user.findUnique({
       where: { email },
@@ -62,8 +62,7 @@ export const findUser = async (email: string): Promise<any> => {
   }
 };
 
-// TODO: поправить тип
-export const deactivateUserById = async (id: number): Promise<any> => {
+export const deactivateUserById = async (id: number): Promise<User | null | void> => {
   try {
     return await prisma.user.update({
       where: { id },
