@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/server.js"
+    "start": "node dist/server.js",
+    "test": "vitest",
+    "test:db:up": "docker"
   },
   "repository": {
     "type": "git",
@@ -41,9 +43,12 @@
     "@types/express": "^5.0.6",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^25.6.0",
+    "@types/supertest": "^7.2.0",
     "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.8",
     "prisma": "^7.7.0",
-    "typescript": "^6.0.2"
+    "supertest": "^7.2.2",
+    "typescript": "^6.0.2",
+    "vitest": "^4.1.6"
   }
 }
