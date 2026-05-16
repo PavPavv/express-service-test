@@ -22,7 +22,6 @@
 5. Блокировка пользователя - либо админ либо пользователь сам себя✅
 
 ## Стэк, npm пакеты
-## Стэк, npm пакеты
 
 - Node.js (express.js)
 - TypeScript
@@ -36,12 +35,14 @@
 - compression
 - pino
 - compression
+- Vitest
 
 ## Установка и запуск
 
 1. Запустить проект в Docker (пример для linux-системы):
 
 ```bash
+# Если порт по умолчанию уже занят системным процессом, то отключить его на время сессии
 sudo systemctl stop postgresql
 # также может в дальнейшем помогать с проблемами кэширования зависимостей js-приложения
 sudo docker-compose build --no-cache
@@ -54,6 +55,16 @@ sudo docker-compose up -d
 
 2. Открыть в Postman или Insomina `http://localhost:8080/api/users/register`
 
+3. Запуск интеграционных тестов:
+
+```bash
+# запустить
+sudo docker-compose -f docker-compose.test.yml up --build
+
+# остановить и очистить
+sudo docker-compose -f docker-compose.test.yml down -v
+```
+
 ## Преимущества проекта
 
 1. Проект использует статическую типизацию (TypeScript)
@@ -61,4 +72,5 @@ sudo docker-compose up -d
 3. Все общие, переиспользуемые по всему проекту утилиты, типы, модели вынесены в `shared`, на самый низкий уровень `/src`
 4. Весь проект запускается в Docker, сервер и база разворачиваются в своих контейнерах и взаимодействуют друг с другом через network "my-express-network"
 5. В проекте используется логгирование и обработка все типов ошибок (от глобальных до частных)
-6. Используется openapi и Swagger для визуализации эндпоинтов. (`http://localhost:8080/api-docs/`)
+6. Используется openapi и **Swagger** для визуализации эндпоинтов. (`http://localhost:8080/api-docs/`)
+7. Пример интеграционного теста

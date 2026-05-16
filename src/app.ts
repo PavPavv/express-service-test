@@ -71,7 +71,7 @@ export const createServer = () => {
     res.status(StatusCodesEnum.NotFound).json({ error: 'Resource not found' });
   });
 
-  // global errors handler
+  // Обработчик глобальных ошибок
   app.use((
     err: Error,
     _req: Request,
